@@ -1,0 +1,16 @@
+[init]
+	defaultBranch = main
+[user]
+	name = Thiago
+	email = thiagojdb@tutanota.com
+[push]
+	autoSetupRemote = true
+[credential]
+	helper = 
+	helper = /usr/local/bin/git-credential-manager
+	credentialStore = gpg
+[credential "https://dev.azure.com"]
+    useHttpPath = true
+[core]
+    editor = nvim
+
