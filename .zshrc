@@ -117,3 +117,7 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+# fnm
+export PATH="/home/thiago/.local/share/fnm:$PATH"
+eval "`fnm env`"

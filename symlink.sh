@@ -10,7 +10,6 @@ function linkDotfile {
   dest="${HOME}/${1}"
   customSrc=${2}
   if [[ $customSrc == "" ]]; then
-      echo "value not set"
       customSrc=${1} 
   fi
 
