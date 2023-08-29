@@ -36,6 +36,7 @@ function linkDotfile {
 }
 
 linkDotfile .config/nvim nvim
+linkDotfile .local/bin/tmux-sessionizer tmux-sessionizer/script.sh
 linkDotfile .tmux.conf
 linkDotfile .zshrc
 linkDotfile .gitconfig
