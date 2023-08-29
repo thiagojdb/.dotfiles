@@ -120,3 +120,6 @@ esac
 # fnm
 export PATH="/home/thiago/.local/share/fnm:$PATH"
 eval "`fnm env`"
+
+
+bindkey -s ^f "tmux-sessionizer\n"
