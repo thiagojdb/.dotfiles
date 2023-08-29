@@ -35,8 +35,9 @@ function linkDotfile {
   ln -s ${dotfilesDir}/${customSrc} ${dest}
 }
 
-linkDotfile .config/nvim nvim
 linkDotfile .local/bin/tmux-sessionizer tmux-sessionizer/script.sh
+linkDotfile .config/nvim nvim
+linkDotfile .config/alacritty alacritty
 linkDotfile .config/gitui gitui
 linkDotfile .tmux.conf
 linkDotfile .zshrc
