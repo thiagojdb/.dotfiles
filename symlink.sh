@@ -36,6 +36,7 @@ function linkDotfile {
 }
 
 linkDotfile .config/nvim nvim
+linkDotfile .config/gitui gitui
 linkDotfile .tmux.conf
 linkDotfile .zshrc
 linkDotfile .gitconfig
