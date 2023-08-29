@@ -37,10 +37,7 @@ install openvpn
 install tmux
 install libfreetype6-dev
 install pass
-
-# Fun stuff
-install figlet
-install lolcat
+install fzf
 
 
 # Rustlang
