@@ -42,49 +42,59 @@ install pass
 install figlet
 install lolcat
 
-# Brave thinks it needs to be longer than everyone else
-sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
-
-echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
-
-sudo apt update
-install brave-browser
-
 
 # Rustlang
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 source "$HOME/.cargo/env"
 
+function install_golang {
+    goVersion=${1}
+    wget "https://dl.google.com/go/${goVersion}.linux-amd64.tar.gz"
+    sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf ${goVersion}.linux-amd64.tar.gz
+    rm ${goVersion}.linux-amd64.tar.gz
+}
+
 # Golang
 goVersion=$(curl "https://go.dev/VERSION?m=text" | sed -n '1p;')
-echo ${goVersion}
-wget "https://dl.google.com/go/${goVersion}.linux-amd64.tar.gz"
-sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf ${goVersion}.linux-amd64.tar.gz
-rm ${goVersion}.linux-amd64.tar.gz
+if ! type "go" > /dev/null; then
+    install_golang ${goVersion}
+else
+    ## TODO - logic to check if is latest version and install again
+fi 
 
 # Fast node manager
 cargo install fnm
+cargo install gitui
 
 # Sdkman
 curl -s "https://get.sdkman.io" | bash
 source "$HOME/.sdkman/bin/sdkman-init.sh"
 
-cargo install gitui
+if ! type "alacritty" > /dev/null; then
+    git clone https://github.com/alacritty/alacritty.git
+    cd alacritty
+    cargo build --release
+    infocmp alacritty
+    sudo tic -xe alacritty,alacritty-direct extra/alacritty.info
+    sudo cp target/release/alacritty /usr/local/bin
+    sudo cp extra/logo/alacritty-term.svg /usr/share/pixmaps/Alacritty.svg
+    sudo desktop-file-install extra/linux/Alacritty.desktop
+    sudo update-desktop-database
+    cd ../
+    rm -rf alacritty
+else
+    ## TODO - logic to check if is latest version and install again
+fi 
 
-git clone https://github.com/alacritty/alacritty.git
-cd alacritty
-cargo build --release
-infocmp alacritty
-sudo tic -xe alacritty,alacritty-direct extra/alacritty.info
-sudo cp target/release/alacritty /usr/local/bin
-sudo cp extra/logo/alacritty-term.svg /usr/share/pixmaps/Alacritty.svg
-sudo desktop-file-install extra/linux/Alacritty.desktop
-sudo update-desktop-database
-cd ../
-rm -rf alacritty
+if ! type "git-credential-manager" > /dev/null; then
+    wget https://github.com/git-ecosystem/git-credential-manager/releases/download/v2.3.2/gcm-linux_amd64.2.3.2.deb
+    sudo dpkg -i gcm-linux_amd64.2.3.2.deb 
+    rm gcm-linux_amd64.2.3.2.deb 
+fi 
 
-
-wget https://github.com/git-ecosystem/git-credential-manager/releases/download/v2.3.2/gcm-linux_amd64.2.3.2.deb
-sudo dpkg -i gcm-linux_amd64.2.3.2.deb 
-rm gcm-linux_amd64.2.3.2.deb 
-git-credential-manager configure
+if ! type "brave-browser" > /dev/null; then
+    sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+    echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+    sudo apt update
+    install brave-browser
+fi
