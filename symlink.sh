@@ -36,7 +36,11 @@ function linkDotfile {
 }
 
 linkDotfile .config/nvim nvim
+<<<<<<< HEAD
 linkDotfile .local/bin/tmux-sessionizer tmux-sessionizer/script.sh
+=======
+linkDotfile .config/gitui gitui
+>>>>>>> 6f787ca36e805788e5dcadacdd019bf0a1d5e90a
 linkDotfile .tmux.conf
 linkDotfile .zshrc
 linkDotfile .gitconfig
