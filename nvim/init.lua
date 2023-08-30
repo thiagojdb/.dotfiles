@@ -14,6 +14,7 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 
 require("lazy").setup({
+    {'f-person/git-blame.nvim'},
     {url = 'https://gitlab.com/huesersohn/sonarlint.nvim'}
     , { "nvim-lua/plenary.nvim" }
 , { 'nvim-tree/nvim-web-devicons' }

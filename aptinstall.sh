@@ -37,8 +37,7 @@ install openvpn
 install tmux
 install libfreetype6-dev
 install pass
-
-# Fun stuff
+install fzf
 install figlet
 install lolcat
 
@@ -69,6 +68,28 @@ cargo install gitui
 # Sdkman
 curl -s "https://get.sdkman.io" | bash
 source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+tee "$HOME/.sdkman/etc/config" <<EOF
+sdkman_auto_answer=true
+sdkman_selfupdate_feature=true
+sdkman_insecure_ssl=false
+sdkman_curl_connect_timeout=5
+sdkman_curl_continue=true
+sdkman_curl_max_time=10
+sdkman_beta_channel=false
+sdkman_debug_mode=true
+sdkman_colour_enable=true
+sdkman_auto_env=true
+sdkman_auto_complete=true
+EOF
+
+sdk install java 20.0.1-amzn
+sdk install java 17.0.8-amzn
+sdk install java 11.0.20-amzn
+sdk install java 8.0.382-amzn
+
+
+
 
 if ! type "alacritty" > /dev/null; then
     git clone https://github.com/alacritty/alacritty.git
