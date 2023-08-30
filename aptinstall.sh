@@ -70,13 +70,13 @@ source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 tee "$HOME/.sdkman/etc/config" <<EOF
 sdkman_auto_answer=true
-sdkman_selfupdate_feature=true
+sdkman_selfupdate_feature=false
 sdkman_insecure_ssl=false
 sdkman_curl_connect_timeout=5
 sdkman_curl_continue=true
 sdkman_curl_max_time=10
 sdkman_beta_channel=false
-sdkman_debug_mode=true
+sdkman_debug_mode=false
 sdkman_colour_enable=true
 sdkman_auto_env=true
 sdkman_auto_complete=true
