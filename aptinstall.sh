@@ -40,6 +40,7 @@ install pass
 install fzf
 install figlet
 install lolcat
+install fd-find
 
 # Rustlang
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh  -s -- -y
@@ -91,8 +92,8 @@ sdk install java 8.0.382-amzn
 
 
 if ! type "alacritty" > /dev/null; then
-    git clone https://github.com/alacritty/alacritty.git
-    cd alacritty
+    git clone https://github.com/alacritty/alacritty.git build/alacritty
+    cd build/alacritty
     cargo build --release
     infocmp alacritty
     sudo tic -xe alacritty,alacritty-direct extra/alacritty.info
