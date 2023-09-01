@@ -2,11 +2,46 @@
 
 sudo apt update
 
-sudo apt install -y gcc pkg-config openssl libasound2-dev cmake \n
-build-essential python3 libfreetype6-dev libexpat1-dev libxcb-composite0-dev \n
-libssl-dev libx11-dev libfontconfig1-dev curl chromium-browser firefox git \n
-htop nmap openvpn tmux libfreetype6-dev pass fzf figlet lolcat fd-find \n
-ripgrep
+function install {
+  which $1 &> /dev/null
+
+  if [ $? -ne 0 ]; then
+    echo "Installing: ${1}..."
+    sudo apt install -y $1
+  else
+    echo "Already installed: ${1}"
+  fi
+}
+
+# Basics
+install gcc
+install pkg-config
+install openssl 
+install libasound2-dev 
+install cmake 
+install build-essential 
+install python3 
+install libfreetype6-dev 
+install libexpat1-dev 
+install libxcb-composite0-dev 
+install libssl-dev 
+install libx11-dev 
+install libfontconfig1-dev
+install curl
+install chromium-browser
+install firefox
+install git
+install htop
+install nmap
+install openvpn
+install tmux
+install libfreetype6-dev
+install pass
+install fzf
+install figlet
+install lolcat
+install fd-find
+install ripgrep
 
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
@@ -55,6 +90,14 @@ if ! foobar_loc="$(type -p "nvim")" || [[ -z $foobar_loc ]]; then
 	sudo make install
 	cd ../
 	rm neovim-build -rf
+fi
+
+if ! foobar_loc="$(type -p "lazygit")" || [[ -z $foobar_loc ]]; then
+    LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+    curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+    tar xf lazygit.tar.gz lazygit
+    sudo install lazygit /usr/local/bin
+    rm lazygit.tar.gz lazygit
 fi
 
 # Fast node manager
