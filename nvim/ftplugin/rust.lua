@@ -165,11 +165,10 @@ local opts = {
 
   -- debugging stuff
   dap = {
-    adapter = {
-      type = "executable",
-      command = "lldb-vscode",
-      name = "rt_lldb",
-    },
+    adapter =require('rust-tools.dap').get_codelldb_adapter(
+        "/home/thiago/.local/share/nvim/mason/packages/codelldb/extension/adapter/codelldb",
+        "/home/thiago/.local/share/nvim/mason/packages/codelldb/extension/lldb/lib/liblldb.so"
+        )
   },
 }
 
