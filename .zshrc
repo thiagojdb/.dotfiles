@@ -103,7 +103,6 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias vim=nvim
-export PATH=$PATH:/usr/local/go/bin
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
@@ -121,4 +120,10 @@ esac
 export PATH="/home/thiago/.local/share/fnm:$PATH"
 eval "`fnm env`"
 
+export MOZ_USE_XINPUT2=1
+
 bindkey -s ^f "$HOME/.local/bin/tmux-sessionizer\n"
+
+export PATH="$(go env GOPATH)/bin:$PATH"
+
+

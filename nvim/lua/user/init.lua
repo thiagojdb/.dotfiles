@@ -2,7 +2,6 @@ vim.opt.nu = true
 vim.opt.relativenumber = true
 
 vim.opt.errorbells = false
-vim.opt.mouse = nil
 
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
