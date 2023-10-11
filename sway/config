@@ -20,7 +20,7 @@ set $term alacritty
 # on the original workspace that the command was run on.
 exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
 for_window [app_id="^launcher$"] floating enable, resize set 30 ppt 60 ppt, border pixel 10
-set $menu exec alacritty --class=launcher -e /home/thiago/projects/sway-launcher-desktop/sway-launcher-desktop.sh
+set $menu exec alacritty --class=launcher -e ~/.config/sway/launcher.sh
 
 for_window [app_id="com.james.rustyman"] floating enable
 for_window [title="^Rustyman$"] floating enable
