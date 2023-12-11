@@ -35,7 +35,7 @@ function linkDotfile {
   ln -s ${dotfilesDir}/${customSrc} ${dest}
 }
 
-linkDotfile .local/bin/tmux-sessionizer tmux-sessionizer/script.sh
+linkDotfile .local/bin/tmux-sessionizer tmux-sessionizer
 linkDotfile .config/nvim nvim
 linkDotfile .config/sway sway
 linkDotfile .config/alacritty alacritty

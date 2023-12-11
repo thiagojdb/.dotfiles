@@ -4,6 +4,18 @@
 #
 # Read `man 5 sway` for a complete reference.
 
+input * {
+	xkb_layout us
+	xkb_variant dvorak
+}
+
+input type:touchpad {
+    tap enabled
+    natural_scroll enabled
+    accel_profile "flat" # disable mouse acceleration (enabled by default; to set it manually, use "adaptive" instead of "flat")
+    pointer_accel 0.5 # set mouse sensitivity (between -1 and 1)
+}
+
 ### Variables
 #
 # Logo key. Use Mod1 for Alt.
@@ -14,26 +26,21 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-set $term alacritty
+set $term kitty
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
-for_window [app_id="^launcher$"] floating enable, resize set 30 ppt 60 ppt, border pixel 10
-set $menu exec alacritty --class=launcher -e ~/.config/sway/launcher.sh
 
-for_window [app_id="com.james.rustyman"] floating enable
-for_window [title="^Rustyman$"] floating enable
+set $menu rofi -show combi -combi-modi "drun,run" -terminal $term -ssh-command "{terminal} {ssh-client} {host} [-p {port}]" -run-shell-command "{terminal} {cmd}" -show-icons -font "$gui-font" -lines 10 -width 35
 
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in @datadir@/backgrounds/sway/)
-output eDP-1 bg /home/thiago/Pictures/wallpaper.png fill
-output HDMI-A-1 bg /home/thiago/Pictures/wallpaper.png fill
+output * bg $HOME/Pictures/wallpaper.png fill
 #
 # Example configuration:
 #
-#   output HDMI-A-1 resolution 1920x1080 position 1920,0
+output HDMI-A-1 mode 1920x1080@75Hz
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
@@ -41,20 +48,26 @@ output HDMI-A-1 bg /home/thiago/Pictures/wallpaper.png fill
 #
 # Example configuration:
 #
- exec swayidle -w \
-          timeout 300 'swaylock -f -c 000000' \
-          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-          before-sleep 'swaylock -f -c 000000'
+# exec swayidle -w \
+#          timeout 300 'swaylock -f -c 000000' \
+#          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+#          before-sleep 'swaylock -f -c 000000'
+#
+# This will lock your screen after 300 seconds of inactivity, then turn off
+# your displays after another 300 seconds, and turn your screens back on when
+# resumed. It will also lock your screen before your computer goes to sleep.
 
 ### Input configuration
 #
 # Example configuration:
-
-   input "1739:52861:SYNA32CA:00_06CB:CE7D_Touchpad" {
-       dwt enabled
-       tap enabled
-   }
-
+#
+#   input "2:14:SynPS/2_Synaptics_TouchPad" {
+#       dwt enabled
+#       tap enabled
+#       natural_scroll enabled
+#       middle_emulation enabled
+#   }
+#
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
 
@@ -200,45 +213,32 @@ bindsym $mod+r mode "resize"
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
-bar {
-    position top
+bar swaybar_command waybar
 
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
+include @sysconfdir@/sway/config.d/*
 
-    colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
-    }
-}
-
-
-input "type:keyboard" {
-	xkb_layout us
-	xkb_variant dvorak
-}
-
-
-#Audio controls
-bindsym XF86AudioMute exec pactl set-sink5-mute @DEFAULT_SINK@ toggle
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym --to-code XF86AudioPlay exec playerctl play-pause
-bindsym --to-code XF86AudioPause exec playerctl play-pause
-bindsym --to-code XF86AudioNext exec playerctl next
-bindsym --to-code XF86AudioPrev exec playerctl previous
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86MonBrightnessDown exec brightnessctl set 1%-
+bindsym XF86MonBrightnessUp exec brightnessctl set 1%+
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86Search exec bemenu-run
 
-#customizable keys
-#bindcode 157 exec playerctl play-pause 
-# emoji launcher 133
-# customizable key 157 
-# home 110
-# pgup 112
-# pgdn 117
-# end 115
 
-bindsym XF86MonBrightnessDown exec brightnessctl s 2%-
-bindsym XF86MonBrightnessUp exec brightnessctl s +2%
+exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
+
+default_border none
+default_floating_border none
+
+smart_gaps on
+gaps outer 10
+gaps inner 10
+
+bindsym $mod+m output "HDMI-A-1" enable ; output "eDP-1" disable
+bindsym $mod+p output "HDMI-A-1" disable ; output "eDP-1" enable
