@@ -46,7 +46,6 @@ mason_lspconfig.setup_handlers {
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
   callback = function(ev)
-    vim.print("you have done the attach")
     local bufnr = vim.api.nvim_get_current_buf()
     local nmap = function(keys, func, desc)
       if desc then
@@ -61,8 +60,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
     nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-    nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
-    nmap('gtd', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
+    nmap('gi', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+    nmap('gtd', require('telescope.builtin').lsp_type_definitions, '[G]oto [T]ype [D]efinition')
+    nmap('gu', require('telescope.builtin').lsp_incoming_calls, '[G]oto [U]usages')
+    nmap('goc', require('telescope.builtin').lsp_outgoing_calls, '[G]oto [O]utgoing [C]alls')
     nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
     nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 

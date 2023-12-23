@@ -123,25 +123,20 @@ local workspace_folder = home ..
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-local java_debug_path = vim.fn.glob(
-  home ..
-  "/.local/share/nvim/mason/packages/java-debug-adapter/extension/server/*.jar"
-  , 1)
-local jdtls_bundles = {
-  java_debug_path
+-- This bundles definition is the same as in the previous section (java-debug installation)
+local bundles = {
+  vim.fn.glob(
+    home ..
+    "/.local/share/nvim/mason/packages/java-debug-adapter/extension/server/*.jar", 1),
 };
+--/home/thiago/.local/share/nvim/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-0.47.0.jar
 
-vim.list_extend(jdtls_bundles,
-  vim.split(
-    vim.fn.glob(
-      home ..
-      "/.local/share/nvim/mason/packages/java-test/extension/server/*.jar",
-      1),
-    "\n"))
+-- This is the new part
+vim.list_extend(bundles, vim.split(vim.fn.glob(home .."/.local/share/nvim/mason/packages/java-test/extension/server/*.jar", 1), "\n"))
 
 local config = {
   cmd = {
-    '/home/thiago/.sdkman/candidates/java/17.0.9-graalce/bin/java',
+    '/home/thiago/.sdkman/candidates/java/21.0.1-amzn/bin/java',
     '-Declipse.application=org.eclipse.jdt.ls.core.id1',
     '-Dosgi.bundles.defaultStartLevel=4',
     '-Declipse.product=org.eclipse.jdt.ls.core.product',
@@ -183,19 +178,24 @@ local config = {
       configuration = {
         runtimes = {
           {
+            name = "JavaSE-1.8",
+            path =
+            "/home/thiago/.sdkman/candidates/java/8.0.382-amzn/",
+          },
+          {
             name = "JavaSE-11",
             path =
-            "/home/thiago/.sdkman/candidates/java/11.0.21-ms/",
+            "/home/thiago/.sdkman/candidates/java/11.0.20-amzn/",
           },
           {
             name = "JavaSE-17",
             path =
-            "/home/thiago/.sdkman/candidates/java/17.0.9-graalce/",
+            "/home/thiago/.sdkman/candidates/java/17.0.9-amzn/",
           },
           {
             name = "JavaSE-21",
             path =
-            "/home/thiago/.sdkman/candidates/java/21.0.1-tem/",
+            "/home/thiago/.sdkman/candidates/java/21.0.1-amzn/",
           }
         }
       },
@@ -235,7 +235,7 @@ local config = {
     require('jdtls').setup_dap({ hotcodereplace = 'auto' })
   end,
   init_options = {
-    bundles = jdtls_bundles,
+    bundles = bundles,
     usePlaceholders = true
   },
   capabilities = capabilities

@@ -27,3 +27,4 @@ bindkey -s ^f "$HOME/.local/bin/tmux-sessionizer\n"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+export PATH=$PATH:/usr/local/go/bin
