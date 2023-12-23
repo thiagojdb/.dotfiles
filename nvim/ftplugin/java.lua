@@ -1,4 +1,3 @@
---vim.print("java is loading")
 --local jdtls = require('jdtls')
 --local root_markers = { 'gradlew', '.git' }
 --local root_dir = require('jdtls.setup').find_root(root_markers)
