@@ -38,7 +38,7 @@ function linkDotfile {
 linkDotfile .local/bin/tmux-sessionizer tmux-sessionizer
 linkDotfile .config/nvim nvim
 linkDotfile .config/sway sway
-linkDotfile .config/alacritty alacritty
+linkDotfile .config/kitty kitty
 linkDotfile .config/gitui gitui
 linkDotfile .tmux.conf
 linkDotfile .zshrc
