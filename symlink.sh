@@ -38,6 +38,7 @@ function linkDotfile {
 linkDotfile .local/bin/tmux-sessionizer tmux-sessionizer
 linkDotfile .config/nvim nvim
 linkDotfile .config/sway sway
+linkDotfile .config/waybar waybar
 linkDotfile .config/kitty kitty
 linkDotfile .config/gitui gitui
 linkDotfile .tmux.conf
