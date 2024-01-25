@@ -42,6 +42,7 @@ install figlet
 install lolcat
 install fd-find
 install ripgrep
+install playerctl
 
 # Rustlang
 if ! foobar_loc="$(type -p "cargo")" || [[ -z $foobar_loc ]]; then
