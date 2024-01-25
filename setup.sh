@@ -10,9 +10,3 @@ mkdir ~/.local/bin
 # Get all upgrades
 sudo apt upgrade -y
 
-
-
-# See our bash changes
-source ~/.zshrc
-
-
