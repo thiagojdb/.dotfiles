@@ -25,7 +25,10 @@ set $term kitty
 set $menu ulauncher
 
 output * bg $HOME/Pictures/wallpaper.png fill
-output "HDMI-A-1" mode 1440x2560@75hz
+
+output HDMI-A-1 {
+    mode 1440x2560@60hz
+} 
 
 bindsym $mod+m output "HDMI-A-1" toggle
 bindsym $mod+p output "eDP-1" toggle
@@ -162,6 +165,7 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
+bindsym $mod+Shift+n exec swaync-client -t -sw
 bar swaybar_command waybar
 
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
@@ -189,4 +193,6 @@ gaps inner 10
 
 
 exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
-exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+#what the actiac
+exec /usr/lib/x86_64-linux-gnu/libexec/polkit-kde-authentication-agent-1 
+exec swaync
